@@ -1,0 +1,790 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    SEMICOLON
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> declaration_list
+Rule 2     declaration_list -> declaration
+Rule 3     declaration_list -> declaration_list declaration
+Rule 4     declaration -> var_declaration
+Rule 5     declaration -> struct_declaration
+Rule 6     declaration -> protocol_declaration
+Rule 7     var_declaration -> LET ID type_annotation_opt assign_opt
+Rule 8     var_declaration -> VAR ID type_annotation_opt assign_opt
+Rule 9     type_annotation_opt -> COLON ID
+Rule 10    type_annotation_opt -> empty
+Rule 11    assign_opt -> ASSIGN expression
+Rule 12    assign_opt -> empty
+Rule 13    expression -> NUMBER
+Rule 14    expression -> STRING
+Rule 15    expression -> ID
+Rule 16    expression -> TRUE
+Rule 17    expression -> FALSE
+Rule 18    struct_declaration -> STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE
+Rule 19    generic_params_opt -> generic_params
+Rule 20    generic_params_opt -> empty
+Rule 21    where_clause_opt -> where_clause
+Rule 22    where_clause_opt -> empty
+Rule 23    property_declaration_list -> var_declaration
+Rule 24    property_declaration_list -> property_declaration_list var_declaration
+Rule 25    property_declaration_list -> empty
+Rule 26    generic_params -> LANGLE generic_parameter_list RANGLE
+Rule 27    generic_parameter_list -> generic_parameter
+Rule 28    generic_parameter_list -> generic_parameter_list COMMA generic_parameter
+Rule 29    generic_parameter -> ID
+Rule 30    generic_parameter -> constraint
+Rule 31    where_clause -> WHERE constraint_list
+Rule 32    constraint_list -> constraint
+Rule 33    constraint_list -> constraint_list COMMA constraint
+Rule 34    constraint -> ID COLON ID
+Rule 35    protocol_declaration -> PROTOCOL ID LBRACE RBRACE
+Rule 36    protocol_declaration -> PROTOCOL ID
+Rule 37    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ASSIGN               : 11
+COLON                : 9 34
+COMMA                : 28 33
+FALSE                : 17
+ID                   : 7 8 9 15 18 29 34 34 35 36
+LANGLE               : 26
+LBRACE               : 18 35
+LET                  : 7
+NUMBER               : 13
+PROTOCOL             : 35 36
+RANGLE               : 26
+RBRACE               : 18 35
+SEMICOLON            : 
+STRING               : 14
+STRUCT               : 18
+TRUE                 : 16
+VAR                  : 8
+WHERE                : 31
+error                : 
+
+Nonterminals, with rules where they appear
+
+assign_opt           : 7 8
+constraint           : 30 32 33
+constraint_list      : 31 33
+declaration          : 2 3
+declaration_list     : 1 3
+empty                : 10 12 20 22 25
+expression           : 11
+generic_parameter    : 27 28
+generic_parameter_list : 26 28
+generic_params       : 19
+generic_params_opt   : 18
+program              : 0
+property_declaration_list : 18 24
+protocol_declaration : 6
+struct_declaration   : 5
+type_annotation_opt  : 7 8
+var_declaration      : 4 23 24
+where_clause         : 21
+where_clause_opt     : 18
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . declaration_list
+    (2) declaration_list -> . declaration
+    (3) declaration_list -> . declaration_list declaration
+    (4) declaration -> . var_declaration
+    (5) declaration -> . struct_declaration
+    (6) declaration -> . protocol_declaration
+    (7) var_declaration -> . LET ID type_annotation_opt assign_opt
+    (8) var_declaration -> . VAR ID type_annotation_opt assign_opt
+    (18) struct_declaration -> . STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE
+    (35) protocol_declaration -> . PROTOCOL ID LBRACE RBRACE
+    (36) protocol_declaration -> . PROTOCOL ID
+
+    LET             shift and go to state 7
+    VAR             shift and go to state 8
+    STRUCT          shift and go to state 9
+    PROTOCOL        shift and go to state 10
+
+    program                        shift and go to state 1
+    declaration_list               shift and go to state 2
+    declaration                    shift and go to state 3
+    var_declaration                shift and go to state 4
+    struct_declaration             shift and go to state 5
+    protocol_declaration           shift and go to state 6
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> declaration_list .
+    (3) declaration_list -> declaration_list . declaration
+    (4) declaration -> . var_declaration
+    (5) declaration -> . struct_declaration
+    (6) declaration -> . protocol_declaration
+    (7) var_declaration -> . LET ID type_annotation_opt assign_opt
+    (8) var_declaration -> . VAR ID type_annotation_opt assign_opt
+    (18) struct_declaration -> . STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE
+    (35) protocol_declaration -> . PROTOCOL ID LBRACE RBRACE
+    (36) protocol_declaration -> . PROTOCOL ID
+
+    $end            reduce using rule 1 (program -> declaration_list .)
+    LET             shift and go to state 7
+    VAR             shift and go to state 8
+    STRUCT          shift and go to state 9
+    PROTOCOL        shift and go to state 10
+
+    declaration                    shift and go to state 11
+    var_declaration                shift and go to state 4
+    struct_declaration             shift and go to state 5
+    protocol_declaration           shift and go to state 6
+
+state 3
+
+    (2) declaration_list -> declaration .
+
+    LET             reduce using rule 2 (declaration_list -> declaration .)
+    VAR             reduce using rule 2 (declaration_list -> declaration .)
+    STRUCT          reduce using rule 2 (declaration_list -> declaration .)
+    PROTOCOL        reduce using rule 2 (declaration_list -> declaration .)
+    $end            reduce using rule 2 (declaration_list -> declaration .)
+
+
+state 4
+
+    (4) declaration -> var_declaration .
+
+    LET             reduce using rule 4 (declaration -> var_declaration .)
+    VAR             reduce using rule 4 (declaration -> var_declaration .)
+    STRUCT          reduce using rule 4 (declaration -> var_declaration .)
+    PROTOCOL        reduce using rule 4 (declaration -> var_declaration .)
+    $end            reduce using rule 4 (declaration -> var_declaration .)
+
+
+state 5
+
+    (5) declaration -> struct_declaration .
+
+    LET             reduce using rule 5 (declaration -> struct_declaration .)
+    VAR             reduce using rule 5 (declaration -> struct_declaration .)
+    STRUCT          reduce using rule 5 (declaration -> struct_declaration .)
+    PROTOCOL        reduce using rule 5 (declaration -> struct_declaration .)
+    $end            reduce using rule 5 (declaration -> struct_declaration .)
+
+
+state 6
+
+    (6) declaration -> protocol_declaration .
+
+    LET             reduce using rule 6 (declaration -> protocol_declaration .)
+    VAR             reduce using rule 6 (declaration -> protocol_declaration .)
+    STRUCT          reduce using rule 6 (declaration -> protocol_declaration .)
+    PROTOCOL        reduce using rule 6 (declaration -> protocol_declaration .)
+    $end            reduce using rule 6 (declaration -> protocol_declaration .)
+
+
+state 7
+
+    (7) var_declaration -> LET . ID type_annotation_opt assign_opt
+
+    ID              shift and go to state 12
+
+
+state 8
+
+    (8) var_declaration -> VAR . ID type_annotation_opt assign_opt
+
+    ID              shift and go to state 13
+
+
+state 9
+
+    (18) struct_declaration -> STRUCT . ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE
+
+    ID              shift and go to state 14
+
+
+state 10
+
+    (35) protocol_declaration -> PROTOCOL . ID LBRACE RBRACE
+    (36) protocol_declaration -> PROTOCOL . ID
+
+    ID              shift and go to state 15
+
+
+state 11
+
+    (3) declaration_list -> declaration_list declaration .
+
+    LET             reduce using rule 3 (declaration_list -> declaration_list declaration .)
+    VAR             reduce using rule 3 (declaration_list -> declaration_list declaration .)
+    STRUCT          reduce using rule 3 (declaration_list -> declaration_list declaration .)
+    PROTOCOL        reduce using rule 3 (declaration_list -> declaration_list declaration .)
+    $end            reduce using rule 3 (declaration_list -> declaration_list declaration .)
+
+
+state 12
+
+    (7) var_declaration -> LET ID . type_annotation_opt assign_opt
+    (9) type_annotation_opt -> . COLON ID
+    (10) type_annotation_opt -> . empty
+    (37) empty -> .
+
+    COLON           shift and go to state 17
+    ASSIGN          reduce using rule 37 (empty -> .)
+    LET             reduce using rule 37 (empty -> .)
+    VAR             reduce using rule 37 (empty -> .)
+    STRUCT          reduce using rule 37 (empty -> .)
+    PROTOCOL        reduce using rule 37 (empty -> .)
+    $end            reduce using rule 37 (empty -> .)
+    RBRACE          reduce using rule 37 (empty -> .)
+
+    type_annotation_opt            shift and go to state 16
+    empty                          shift and go to state 18
+
+state 13
+
+    (8) var_declaration -> VAR ID . type_annotation_opt assign_opt
+    (9) type_annotation_opt -> . COLON ID
+    (10) type_annotation_opt -> . empty
+    (37) empty -> .
+
+    COLON           shift and go to state 17
+    ASSIGN          reduce using rule 37 (empty -> .)
+    LET             reduce using rule 37 (empty -> .)
+    VAR             reduce using rule 37 (empty -> .)
+    STRUCT          reduce using rule 37 (empty -> .)
+    PROTOCOL        reduce using rule 37 (empty -> .)
+    $end            reduce using rule 37 (empty -> .)
+    RBRACE          reduce using rule 37 (empty -> .)
+
+    type_annotation_opt            shift and go to state 19
+    empty                          shift and go to state 18
+
+state 14
+
+    (18) struct_declaration -> STRUCT ID . generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE
+    (19) generic_params_opt -> . generic_params
+    (20) generic_params_opt -> . empty
+    (26) generic_params -> . LANGLE generic_parameter_list RANGLE
+    (37) empty -> .
+
+    LANGLE          shift and go to state 23
+    WHERE           reduce using rule 37 (empty -> .)
+    LBRACE          reduce using rule 37 (empty -> .)
+
+    generic_params_opt             shift and go to state 20
+    generic_params                 shift and go to state 21
+    empty                          shift and go to state 22
+
+state 15
+
+    (35) protocol_declaration -> PROTOCOL ID . LBRACE RBRACE
+    (36) protocol_declaration -> PROTOCOL ID .
+
+    LBRACE          shift and go to state 24
+    LET             reduce using rule 36 (protocol_declaration -> PROTOCOL ID .)
+    VAR             reduce using rule 36 (protocol_declaration -> PROTOCOL ID .)
+    STRUCT          reduce using rule 36 (protocol_declaration -> PROTOCOL ID .)
+    PROTOCOL        reduce using rule 36 (protocol_declaration -> PROTOCOL ID .)
+    $end            reduce using rule 36 (protocol_declaration -> PROTOCOL ID .)
+
+
+state 16
+
+    (7) var_declaration -> LET ID type_annotation_opt . assign_opt
+    (11) assign_opt -> . ASSIGN expression
+    (12) assign_opt -> . empty
+    (37) empty -> .
+
+    ASSIGN          shift and go to state 26
+    LET             reduce using rule 37 (empty -> .)
+    VAR             reduce using rule 37 (empty -> .)
+    STRUCT          reduce using rule 37 (empty -> .)
+    PROTOCOL        reduce using rule 37 (empty -> .)
+    $end            reduce using rule 37 (empty -> .)
+    RBRACE          reduce using rule 37 (empty -> .)
+
+    assign_opt                     shift and go to state 25
+    empty                          shift and go to state 27
+
+state 17
+
+    (9) type_annotation_opt -> COLON . ID
+
+    ID              shift and go to state 28
+
+
+state 18
+
+    (10) type_annotation_opt -> empty .
+
+    ASSIGN          reduce using rule 10 (type_annotation_opt -> empty .)
+    LET             reduce using rule 10 (type_annotation_opt -> empty .)
+    VAR             reduce using rule 10 (type_annotation_opt -> empty .)
+    STRUCT          reduce using rule 10 (type_annotation_opt -> empty .)
+    PROTOCOL        reduce using rule 10 (type_annotation_opt -> empty .)
+    $end            reduce using rule 10 (type_annotation_opt -> empty .)
+    RBRACE          reduce using rule 10 (type_annotation_opt -> empty .)
+
+
+state 19
+
+    (8) var_declaration -> VAR ID type_annotation_opt . assign_opt
+    (11) assign_opt -> . ASSIGN expression
+    (12) assign_opt -> . empty
+    (37) empty -> .
+
+    ASSIGN          shift and go to state 26
+    LET             reduce using rule 37 (empty -> .)
+    VAR             reduce using rule 37 (empty -> .)
+    STRUCT          reduce using rule 37 (empty -> .)
+    PROTOCOL        reduce using rule 37 (empty -> .)
+    $end            reduce using rule 37 (empty -> .)
+    RBRACE          reduce using rule 37 (empty -> .)
+
+    assign_opt                     shift and go to state 29
+    empty                          shift and go to state 27
+
+state 20
+
+    (18) struct_declaration -> STRUCT ID generic_params_opt . where_clause_opt LBRACE property_declaration_list RBRACE
+    (21) where_clause_opt -> . where_clause
+    (22) where_clause_opt -> . empty
+    (31) where_clause -> . WHERE constraint_list
+    (37) empty -> .
+
+    WHERE           shift and go to state 33
+    LBRACE          reduce using rule 37 (empty -> .)
+
+    where_clause_opt               shift and go to state 30
+    where_clause                   shift and go to state 31
+    empty                          shift and go to state 32
+
+state 21
+
+    (19) generic_params_opt -> generic_params .
+
+    WHERE           reduce using rule 19 (generic_params_opt -> generic_params .)
+    LBRACE          reduce using rule 19 (generic_params_opt -> generic_params .)
+
+
+state 22
+
+    (20) generic_params_opt -> empty .
+
+    WHERE           reduce using rule 20 (generic_params_opt -> empty .)
+    LBRACE          reduce using rule 20 (generic_params_opt -> empty .)
+
+
+state 23
+
+    (26) generic_params -> LANGLE . generic_parameter_list RANGLE
+    (27) generic_parameter_list -> . generic_parameter
+    (28) generic_parameter_list -> . generic_parameter_list COMMA generic_parameter
+    (29) generic_parameter -> . ID
+    (30) generic_parameter -> . constraint
+    (34) constraint -> . ID COLON ID
+
+    ID              shift and go to state 36
+
+    generic_parameter_list         shift and go to state 34
+    generic_parameter              shift and go to state 35
+    constraint                     shift and go to state 37
+
+state 24
+
+    (35) protocol_declaration -> PROTOCOL ID LBRACE . RBRACE
+
+    RBRACE          shift and go to state 38
+
+
+state 25
+
+    (7) var_declaration -> LET ID type_annotation_opt assign_opt .
+
+    LET             reduce using rule 7 (var_declaration -> LET ID type_annotation_opt assign_opt .)
+    VAR             reduce using rule 7 (var_declaration -> LET ID type_annotation_opt assign_opt .)
+    STRUCT          reduce using rule 7 (var_declaration -> LET ID type_annotation_opt assign_opt .)
+    PROTOCOL        reduce using rule 7 (var_declaration -> LET ID type_annotation_opt assign_opt .)
+    $end            reduce using rule 7 (var_declaration -> LET ID type_annotation_opt assign_opt .)
+    RBRACE          reduce using rule 7 (var_declaration -> LET ID type_annotation_opt assign_opt .)
+
+
+state 26
+
+    (11) assign_opt -> ASSIGN . expression
+    (13) expression -> . NUMBER
+    (14) expression -> . STRING
+    (15) expression -> . ID
+    (16) expression -> . TRUE
+    (17) expression -> . FALSE
+
+    NUMBER          shift and go to state 40
+    STRING          shift and go to state 41
+    ID              shift and go to state 42
+    TRUE            shift and go to state 43
+    FALSE           shift and go to state 44
+
+    expression                     shift and go to state 39
+
+state 27
+
+    (12) assign_opt -> empty .
+
+    LET             reduce using rule 12 (assign_opt -> empty .)
+    VAR             reduce using rule 12 (assign_opt -> empty .)
+    STRUCT          reduce using rule 12 (assign_opt -> empty .)
+    PROTOCOL        reduce using rule 12 (assign_opt -> empty .)
+    $end            reduce using rule 12 (assign_opt -> empty .)
+    RBRACE          reduce using rule 12 (assign_opt -> empty .)
+
+
+state 28
+
+    (9) type_annotation_opt -> COLON ID .
+
+    ASSIGN          reduce using rule 9 (type_annotation_opt -> COLON ID .)
+    LET             reduce using rule 9 (type_annotation_opt -> COLON ID .)
+    VAR             reduce using rule 9 (type_annotation_opt -> COLON ID .)
+    STRUCT          reduce using rule 9 (type_annotation_opt -> COLON ID .)
+    PROTOCOL        reduce using rule 9 (type_annotation_opt -> COLON ID .)
+    $end            reduce using rule 9 (type_annotation_opt -> COLON ID .)
+    RBRACE          reduce using rule 9 (type_annotation_opt -> COLON ID .)
+
+
+state 29
+
+    (8) var_declaration -> VAR ID type_annotation_opt assign_opt .
+
+    LET             reduce using rule 8 (var_declaration -> VAR ID type_annotation_opt assign_opt .)
+    VAR             reduce using rule 8 (var_declaration -> VAR ID type_annotation_opt assign_opt .)
+    STRUCT          reduce using rule 8 (var_declaration -> VAR ID type_annotation_opt assign_opt .)
+    PROTOCOL        reduce using rule 8 (var_declaration -> VAR ID type_annotation_opt assign_opt .)
+    $end            reduce using rule 8 (var_declaration -> VAR ID type_annotation_opt assign_opt .)
+    RBRACE          reduce using rule 8 (var_declaration -> VAR ID type_annotation_opt assign_opt .)
+
+
+state 30
+
+    (18) struct_declaration -> STRUCT ID generic_params_opt where_clause_opt . LBRACE property_declaration_list RBRACE
+
+    LBRACE          shift and go to state 45
+
+
+state 31
+
+    (21) where_clause_opt -> where_clause .
+
+    LBRACE          reduce using rule 21 (where_clause_opt -> where_clause .)
+
+
+state 32
+
+    (22) where_clause_opt -> empty .
+
+    LBRACE          reduce using rule 22 (where_clause_opt -> empty .)
+
+
+state 33
+
+    (31) where_clause -> WHERE . constraint_list
+    (32) constraint_list -> . constraint
+    (33) constraint_list -> . constraint_list COMMA constraint
+    (34) constraint -> . ID COLON ID
+
+    ID              shift and go to state 48
+
+    constraint_list                shift and go to state 46
+    constraint                     shift and go to state 47
+
+state 34
+
+    (26) generic_params -> LANGLE generic_parameter_list . RANGLE
+    (28) generic_parameter_list -> generic_parameter_list . COMMA generic_parameter
+
+    RANGLE          shift and go to state 49
+    COMMA           shift and go to state 50
+
+
+state 35
+
+    (27) generic_parameter_list -> generic_parameter .
+
+    RANGLE          reduce using rule 27 (generic_parameter_list -> generic_parameter .)
+    COMMA           reduce using rule 27 (generic_parameter_list -> generic_parameter .)
+
+
+state 36
+
+    (29) generic_parameter -> ID .
+    (34) constraint -> ID . COLON ID
+
+    RANGLE          reduce using rule 29 (generic_parameter -> ID .)
+    COMMA           reduce using rule 29 (generic_parameter -> ID .)
+    COLON           shift and go to state 51
+
+
+state 37
+
+    (30) generic_parameter -> constraint .
+
+    RANGLE          reduce using rule 30 (generic_parameter -> constraint .)
+    COMMA           reduce using rule 30 (generic_parameter -> constraint .)
+
+
+state 38
+
+    (35) protocol_declaration -> PROTOCOL ID LBRACE RBRACE .
+
+    LET             reduce using rule 35 (protocol_declaration -> PROTOCOL ID LBRACE RBRACE .)
+    VAR             reduce using rule 35 (protocol_declaration -> PROTOCOL ID LBRACE RBRACE .)
+    STRUCT          reduce using rule 35 (protocol_declaration -> PROTOCOL ID LBRACE RBRACE .)
+    PROTOCOL        reduce using rule 35 (protocol_declaration -> PROTOCOL ID LBRACE RBRACE .)
+    $end            reduce using rule 35 (protocol_declaration -> PROTOCOL ID LBRACE RBRACE .)
+
+
+state 39
+
+    (11) assign_opt -> ASSIGN expression .
+
+    LET             reduce using rule 11 (assign_opt -> ASSIGN expression .)
+    VAR             reduce using rule 11 (assign_opt -> ASSIGN expression .)
+    STRUCT          reduce using rule 11 (assign_opt -> ASSIGN expression .)
+    PROTOCOL        reduce using rule 11 (assign_opt -> ASSIGN expression .)
+    $end            reduce using rule 11 (assign_opt -> ASSIGN expression .)
+    RBRACE          reduce using rule 11 (assign_opt -> ASSIGN expression .)
+
+
+state 40
+
+    (13) expression -> NUMBER .
+
+    LET             reduce using rule 13 (expression -> NUMBER .)
+    VAR             reduce using rule 13 (expression -> NUMBER .)
+    STRUCT          reduce using rule 13 (expression -> NUMBER .)
+    PROTOCOL        reduce using rule 13 (expression -> NUMBER .)
+    $end            reduce using rule 13 (expression -> NUMBER .)
+    RBRACE          reduce using rule 13 (expression -> NUMBER .)
+
+
+state 41
+
+    (14) expression -> STRING .
+
+    LET             reduce using rule 14 (expression -> STRING .)
+    VAR             reduce using rule 14 (expression -> STRING .)
+    STRUCT          reduce using rule 14 (expression -> STRING .)
+    PROTOCOL        reduce using rule 14 (expression -> STRING .)
+    $end            reduce using rule 14 (expression -> STRING .)
+    RBRACE          reduce using rule 14 (expression -> STRING .)
+
+
+state 42
+
+    (15) expression -> ID .
+
+    LET             reduce using rule 15 (expression -> ID .)
+    VAR             reduce using rule 15 (expression -> ID .)
+    STRUCT          reduce using rule 15 (expression -> ID .)
+    PROTOCOL        reduce using rule 15 (expression -> ID .)
+    $end            reduce using rule 15 (expression -> ID .)
+    RBRACE          reduce using rule 15 (expression -> ID .)
+
+
+state 43
+
+    (16) expression -> TRUE .
+
+    LET             reduce using rule 16 (expression -> TRUE .)
+    VAR             reduce using rule 16 (expression -> TRUE .)
+    STRUCT          reduce using rule 16 (expression -> TRUE .)
+    PROTOCOL        reduce using rule 16 (expression -> TRUE .)
+    $end            reduce using rule 16 (expression -> TRUE .)
+    RBRACE          reduce using rule 16 (expression -> TRUE .)
+
+
+state 44
+
+    (17) expression -> FALSE .
+
+    LET             reduce using rule 17 (expression -> FALSE .)
+    VAR             reduce using rule 17 (expression -> FALSE .)
+    STRUCT          reduce using rule 17 (expression -> FALSE .)
+    PROTOCOL        reduce using rule 17 (expression -> FALSE .)
+    $end            reduce using rule 17 (expression -> FALSE .)
+    RBRACE          reduce using rule 17 (expression -> FALSE .)
+
+
+state 45
+
+    (18) struct_declaration -> STRUCT ID generic_params_opt where_clause_opt LBRACE . property_declaration_list RBRACE
+    (23) property_declaration_list -> . var_declaration
+    (24) property_declaration_list -> . property_declaration_list var_declaration
+    (25) property_declaration_list -> . empty
+    (7) var_declaration -> . LET ID type_annotation_opt assign_opt
+    (8) var_declaration -> . VAR ID type_annotation_opt assign_opt
+    (37) empty -> .
+
+  ! shift/reduce conflict for LET resolved as shift
+  ! shift/reduce conflict for VAR resolved as shift
+    LET             shift and go to state 7
+    VAR             shift and go to state 8
+    RBRACE          reduce using rule 37 (empty -> .)
+
+  ! LET             [ reduce using rule 37 (empty -> .) ]
+  ! VAR             [ reduce using rule 37 (empty -> .) ]
+
+    property_declaration_list      shift and go to state 52
+    var_declaration                shift and go to state 53
+    empty                          shift and go to state 54
+
+state 46
+
+    (31) where_clause -> WHERE constraint_list .
+    (33) constraint_list -> constraint_list . COMMA constraint
+
+    LBRACE          reduce using rule 31 (where_clause -> WHERE constraint_list .)
+    COMMA           shift and go to state 55
+
+
+state 47
+
+    (32) constraint_list -> constraint .
+
+    COMMA           reduce using rule 32 (constraint_list -> constraint .)
+    LBRACE          reduce using rule 32 (constraint_list -> constraint .)
+
+
+state 48
+
+    (34) constraint -> ID . COLON ID
+
+    COLON           shift and go to state 51
+
+
+state 49
+
+    (26) generic_params -> LANGLE generic_parameter_list RANGLE .
+
+    WHERE           reduce using rule 26 (generic_params -> LANGLE generic_parameter_list RANGLE .)
+    LBRACE          reduce using rule 26 (generic_params -> LANGLE generic_parameter_list RANGLE .)
+
+
+state 50
+
+    (28) generic_parameter_list -> generic_parameter_list COMMA . generic_parameter
+    (29) generic_parameter -> . ID
+    (30) generic_parameter -> . constraint
+    (34) constraint -> . ID COLON ID
+
+    ID              shift and go to state 36
+
+    generic_parameter              shift and go to state 56
+    constraint                     shift and go to state 37
+
+state 51
+
+    (34) constraint -> ID COLON . ID
+
+    ID              shift and go to state 57
+
+
+state 52
+
+    (18) struct_declaration -> STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list . RBRACE
+    (24) property_declaration_list -> property_declaration_list . var_declaration
+    (7) var_declaration -> . LET ID type_annotation_opt assign_opt
+    (8) var_declaration -> . VAR ID type_annotation_opt assign_opt
+
+    RBRACE          shift and go to state 58
+    LET             shift and go to state 7
+    VAR             shift and go to state 8
+
+    var_declaration                shift and go to state 59
+
+state 53
+
+    (23) property_declaration_list -> var_declaration .
+
+    RBRACE          reduce using rule 23 (property_declaration_list -> var_declaration .)
+    LET             reduce using rule 23 (property_declaration_list -> var_declaration .)
+    VAR             reduce using rule 23 (property_declaration_list -> var_declaration .)
+
+
+state 54
+
+    (25) property_declaration_list -> empty .
+
+    RBRACE          reduce using rule 25 (property_declaration_list -> empty .)
+    LET             reduce using rule 25 (property_declaration_list -> empty .)
+    VAR             reduce using rule 25 (property_declaration_list -> empty .)
+
+
+state 55
+
+    (33) constraint_list -> constraint_list COMMA . constraint
+    (34) constraint -> . ID COLON ID
+
+    ID              shift and go to state 48
+
+    constraint                     shift and go to state 60
+
+state 56
+
+    (28) generic_parameter_list -> generic_parameter_list COMMA generic_parameter .
+
+    RANGLE          reduce using rule 28 (generic_parameter_list -> generic_parameter_list COMMA generic_parameter .)
+    COMMA           reduce using rule 28 (generic_parameter_list -> generic_parameter_list COMMA generic_parameter .)
+
+
+state 57
+
+    (34) constraint -> ID COLON ID .
+
+    RANGLE          reduce using rule 34 (constraint -> ID COLON ID .)
+    COMMA           reduce using rule 34 (constraint -> ID COLON ID .)
+    LBRACE          reduce using rule 34 (constraint -> ID COLON ID .)
+
+
+state 58
+
+    (18) struct_declaration -> STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE .
+
+    LET             reduce using rule 18 (struct_declaration -> STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE .)
+    VAR             reduce using rule 18 (struct_declaration -> STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE .)
+    STRUCT          reduce using rule 18 (struct_declaration -> STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE .)
+    PROTOCOL        reduce using rule 18 (struct_declaration -> STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE .)
+    $end            reduce using rule 18 (struct_declaration -> STRUCT ID generic_params_opt where_clause_opt LBRACE property_declaration_list RBRACE .)
+
+
+state 59
+
+    (24) property_declaration_list -> property_declaration_list var_declaration .
+
+    RBRACE          reduce using rule 24 (property_declaration_list -> property_declaration_list var_declaration .)
+    LET             reduce using rule 24 (property_declaration_list -> property_declaration_list var_declaration .)
+    VAR             reduce using rule 24 (property_declaration_list -> property_declaration_list var_declaration .)
+
+
+state 60
+
+    (33) constraint_list -> constraint_list COMMA constraint .
+
+    COMMA           reduce using rule 33 (constraint_list -> constraint_list COMMA constraint .)
+    LBRACE          reduce using rule 33 (constraint_list -> constraint_list COMMA constraint .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for LET in state 45 resolved as shift
+WARNING: shift/reduce conflict for VAR in state 45 resolved as shift
