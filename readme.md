@@ -71,5 +71,4 @@ The grammar covers the structure of declarations, including:
 
 ---
 
-*This README was generated to help you document your project for GitHub.*
 
