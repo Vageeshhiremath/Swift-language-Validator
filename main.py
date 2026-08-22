@@ -2,7 +2,8 @@ import ply.lex as lex
 import ply.yacc as yacc
 import sys
 from lexer import tokens, lexer, lexer_error
-from parser import parser, check as type_check
+from parser import parser
+from semantic import check as type_check
 
 def read_multiline_input(prompt="Enter Swift code (end with empty line):\n"):
     """Read multiline Swift code until an empty line."""
