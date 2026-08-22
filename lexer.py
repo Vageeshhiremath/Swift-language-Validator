@@ -58,13 +58,24 @@ def t_STRING(t):
     t.value = t.value[1:-1]
     return t
 
+# Block comment (/* ... */) — must be defined before the single-line
+# comment rule check happens; PLY tries function rules in the order
+# they appear in the file, so this runs first for '/' starts.
+def t_BLOCK_COMMENT(t):
+    r'/\*[\s\S]*?\*/'
+    t.lexer.lineno += t.value.count('\n')
+    pass
+
 # Single-line comment
 def t_COMMENT(t):
     r'//.*'
     pass
 
-# Ignore whitespace
-t_ignore = ' \t\r\n'
+# Ignore whitespace (NOT newlines — those must reach t_newline() below
+# so lexer.lineno actually increments. Previously '\r\n' was included
+# here, which meant t_newline() never fired and every error message
+# reported "line 1" regardless of the real position.)
+t_ignore = ' \t'
 
 # Handle newlines
 def t_newline(t):
