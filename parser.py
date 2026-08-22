@@ -32,9 +32,15 @@ def p_declaration(p):
 
 # --- Variable and Constant Declarations ---
 def p_var_declaration(p):
-    '''var_declaration : LET ID type_annotation_opt assign_opt
-                       | VAR ID type_annotation_opt assign_opt'''
+    '''var_declaration : LET ID type_annotation_opt assign_opt semicolon_opt
+                       | VAR ID type_annotation_opt assign_opt semicolon_opt'''
     p[0] = ('var_decl', p[1], p[2], p[3], p[4])
+
+def p_semicolon_opt(p):
+    '''semicolon_opt : SEMICOLON
+                     | empty'''
+    # Optional statement terminator, matching real Swift's optional ';'.
+    pass
 
 def p_type_annotation_opt(p):
     '''type_annotation_opt : COLON ID
@@ -166,117 +172,7 @@ def p_error(p):
 # Build the parser
 parser = yacc.yacc(write_tables=False)
 
-# --- Simple semantic/type checker ---
-from typing import Tuple, List, Dict
-
-def infer_literal_type(value) -> str:
-    if isinstance(value, int):
-        return 'Int'
-    if isinstance(value, float):
-        return 'Float'
-    if isinstance(value, str):
-        if value in ('true', 'false'):
-            return 'Bool'
-        return 'StringOrID'
-    return 'Unknown'
-
-
-
-def check(ast: Tuple) -> Tuple[bool, List[str]]:
-    errors: List[str] = []
-    symbols: Dict[str, str] = {}
-
-    if not ast or ast[0] != 'program':
-        errors.append('Invalid AST: expected top-level program')
-        return False, errors
-
-    decls = ast[1]
-
-    for decl in decls:
-        if not isinstance(decl, tuple):
-            continue
-        kind = decl[0]
-        if kind == 'var_decl':
-            _, kindstr, name, type_ann, assign = decl
-
-            declared_type = None
-            if type_ann and isinstance(type_ann, tuple) and type_ann[0] == 'type_annotation':
-                declared_type = type_ann[1]
-
-            assigned_type = None
-            if assign and isinstance(assign, tuple) and assign[0] == 'assignment':
-                expr = assign[1]
-                if isinstance(expr, tuple) and expr[0] == 'expression':
-                    tag = expr[1]
-                    val = expr[2]
-                    if tag == 'NUMBER':
-                        assigned_type = 'Int' if isinstance(val, int) else 'Float' if isinstance(val, float) else 'Unknown'
-                    elif tag == 'STRING':
-                        assigned_type = 'String'
-                    elif tag == 'TRUE' or tag == 'FALSE':
-                        
-                        assigned_type = 'Bool'
-                    elif tag == 'ID':
-                        if val in symbols:
-                            assigned_type = symbols[val]
-                        else:
-                            errors.append(f"Undefined identifier '{val}' used in assignment to '{name}'")
-                            assigned_type = 'Unknown'
-                    else:
-                        assigned_type = 'Unknown'
-                else:
-                    assigned_type = 'Unknown'
-
-            if declared_type:
-                if assigned_type:
-                    if assigned_type != declared_type:
-                        errors.append(
-                            f"Type error: cannot assign value of type '{assigned_type}' to '{name}' of type '{declared_type}'"
-                        )
-                symbols[name] = declared_type
-            else:
-                if assigned_type and assigned_type != 'Unknown':
-                    symbols[name] = assigned_type
-                else:
-                    symbols[name] = 'Any'
-        elif kind == 'struct_decl':
-            _, struct_name, generics, where_clause, properties = decl
-            for prop in properties:
-                if isinstance(prop, tuple) and prop[0] == 'var_decl':
-                    _, kindstr, name, type_ann, assign = prop
-
-                    declared_type = None
-                    if type_ann and isinstance(type_ann, tuple) and type_ann[0] == 'type_annotation':
-                        declared_type = type_ann[1]
-
-                    assigned_type = None
-                    if assign and isinstance(assign, tuple) and assign[0] == 'assignment':
-                        expr = assign[1]
-                        if isinstance(expr, tuple) and expr[0] == 'expression':
-                            tag = expr[1]
-                            val = expr[2]
-                            if tag == 'NUMBER':
-                                assigned_type = 'Int' if isinstance(val, int) else 'Float' if isinstance(val, float) else 'Unknown'
-                            elif tag == 'STRING':
-                                assigned_type = 'String'
-                            elif tag == 'TRUE' or tag == 'FALSE':
-                                assigned_type = 'Bool'
-                            elif tag == 'ID':
-                                if val in symbols:
-                                    assigned_type = symbols[val]
-                                else:
-                                    errors.append(f"Undefined identifier '{val}' used in assignment to '{name}' in struct '{struct_name}'")
-                                    assigned_type = 'Unknown'
-                            else:
-                                assigned_type = 'Unknown'
-                        else:
-                            assigned_type = 'Unknown'
-
-                    if declared_type:
-                        if assigned_type:
-                            if assigned_type != declared_type:
-                                errors.append(
-                                    f"Type error in struct '{struct_name}': cannot assign value of type '{assigned_type}' to '{name}' of type '{declared_type}'"
-                                )
-    ok = len(errors) == 0
-    return ok, errors
+# Semantic analysis (type checking, symbol table) now lives in
+# semantic.py — see that file for check() and infer_literal_type().
+# It's imported from there by main.py, not re-exported here, to keep
+# parser.py responsible for grammar only.
